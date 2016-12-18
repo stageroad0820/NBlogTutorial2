@@ -1,0 +1,8 @@
+name: Example
+version: 1.0.2
+main: com.stageroad0820.Example.Main
+description: Tutorial Plugin!
+
+commands:
+  blog:
+    description: Blog Tutorial - Multiple Commands!

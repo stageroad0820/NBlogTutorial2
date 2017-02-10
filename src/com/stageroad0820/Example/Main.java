@@ -11,10 +11,12 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -89,6 +91,33 @@ public class Main extends JavaPlugin implements Listener {
 	}
 
 	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		Player victim = event.getEntity().getPlayer();
+		Entity killer = event.getEntity().getKiller();
+
+		if (event.getDeathMessage().contains("fell from a high place")) {
+			event.setDeathMessage(prefix + yellow + victim.getName() + white + " 님이 " + aqua + "앞을 보지 않고 달리다가 떨어졌습니다.");
+		}
+
+		else if (event.getDeathMessage().contains("went up in flames")) {
+			event.setDeathMessage(
+					prefix + yellow + victim.getName() + white + " 님이 " + aqua + "너무 추운 나머지 불속으로 뛰어 들었습니다.");
+		}
+
+		else if (killer instanceof Player) {
+			if (event.getDeathMessage().contains("was slain by")) {
+				event.setDeathMessage(prefix + yellow + victim.getName() + white + " 님이 " + red + killer.getName()
+						+ white + " 님 에게 " + dred + "극악무도하게 살해당하였습니다.");
+			}
+
+			else if (event.getDeathMessage().contains("was shot by")) {
+				event.setDeathMessage(prefix + red + killer.getName() + white + " 님이 " + yellow + victim.getName()
+						+ white + " 님에게 " + aqua + "화살이라는 것이 무엇인지 몸으로 직접 알게 해 주었습니다.");
+			}
+		}
+	}
+
+	@EventHandler
 	public void onPlayerEvent(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		Action action = event.getAction();
@@ -148,15 +177,15 @@ public class Main extends JavaPlugin implements Listener {
 
 		event.setQuitMessage(prefix + yellow + player.getName() + white + " 님이 서버에서 나가셨습니다!");
 	}
-	
+
 	@EventHandler
 	public void onInvClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
-		
-		if(!event.getInventory().getTitle().equalsIgnoreCase("게임모드 변경"))
+
+		if (!event.getInventory().getTitle().equalsIgnoreCase("게임모드 변경"))
 			return;
-		
-		switch(event.getCurrentItem().getType()) {
+
+		switch (event.getCurrentItem().getType()) {
 		case WORKBENCH:
 			player.setGameMode(GameMode.SURVIVAL);
 			player.closeInventory();
@@ -185,51 +214,48 @@ public class Main extends JavaPlugin implements Listener {
 
 	public void openInv(Player player) {
 		Inventory inv = Bukkit.createInventory(null, 27, "게임모드 변경");
-		
+
 		ItemStack srv = new ItemStack(Material.WORKBENCH);
 		ItemMeta srvm = srv.getItemMeta();
-		
+
 		srvm.setDisplayName(gold + "서바이벌 모드");
 		ArrayList<String> srvl = new ArrayList<String>();
-		srvm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "서바이벌 모드" + gray + " 로 변경합니다."
-				, "", blue + "-코드: 0"));
+		srvm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "서바이벌 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 0"));
 		srv.setItemMeta(srvm);
-		
+
 		ItemStack ctv = new ItemStack(Material.DIAMOND_BLOCK);
 		ItemMeta ctvm = ctv.getItemMeta();
-		
+
 		ctvm.setDisplayName(gold + "크리에이티브 모드");
 		ArrayList<String> ctvl = new ArrayList<String>();
-		ctvm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "크리에이티브 모드" + gray + " 로 변경합니다."
-				, "", blue + "-코드: 1"));
+		ctvm.setLore(
+				Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "크리에이티브 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 1"));
 		ctv.setItemMeta(ctvm);
-		
+
 		ItemStack adv = new ItemStack(Material.LEATHER_HELMET);
 		ItemMeta advm = adv.getItemMeta();
-		
+
 		advm.setDisplayName(gold + "어드벤처 모드");
 		ArrayList<String> advl = new ArrayList<String>();
-		advm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "어드벤처 모드" + gray + " 로 변경합니다."
-				, "", blue + "-코드: 2"));
+		advm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "어드벤처 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 2"));
 		adv.setItemMeta(advm);
-		
+
 		ItemStack spt = new ItemStack(Material.GLASS);
 		ItemMeta sptm = spt.getItemMeta();
-		
+
 		sptm.setDisplayName(gold + "관전자 모드");
 		ArrayList<String> sptl = new ArrayList<String>();
-		sptm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "관전자 모드" + gray + " 로 변경합니다."
-				, "", blue + "-코드: 3"));
+		sptm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "관전자 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 3"));
 		spt.setItemMeta(sptm);
-		
+
 		inv.setItem(10, srv);
 		inv.setItem(12, ctv);
 		inv.setItem(14, adv);
 		inv.setItem(16, spt);
-		
+
 		player.openInventory(inv);
 	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		Player player = (Player) sender;
@@ -302,7 +328,7 @@ public class Main extends JavaPlugin implements Listener {
 						player.sendMessage(error + "예기치 못한 에러가 발생했습니다. 개발자는 확인해 주세요. (ln=217)");
 					}
 				}
-				
+
 				else if (args[0].equalsIgnoreCase("inv")) {
 					openInv(player);
 					player.sendMessage(prefix + "게임모드 변경이 가능한 인벤토리 창을 띄웠습니다. ESC 키를 이용해 닫을 수 있습니다.");

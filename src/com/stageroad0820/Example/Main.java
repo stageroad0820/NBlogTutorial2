@@ -70,6 +70,7 @@ public class Main extends JavaPlugin implements Listener {
 		Commands.setPlugin(this);
 		
 		getCommand("blog").setExecutor(new Commands());
+		getCommand("cs").setExecutor(new Commands());
 		
 		pm.registerEvents(this, this);
 		pm.registerEvents(new Commands(), this);

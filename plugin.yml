@@ -1,8 +1,10 @@
 name: Example
-version: 1.1.5
+version: 1.1.6
 main: com.stageroad0820.Example.Main
 description: Tutorial Plugin!
 
 commands:
   blog:
-    description: Blog Tutorial - Multiple Commands!
+    description: Blog Tutorial - Player Commands!
+  cs:
+    descriptino: Blog Tutorial - Console Commands!

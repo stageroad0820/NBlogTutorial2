@@ -1,6 +1,5 @@
 package com.stageroad0820.Example;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -20,8 +19,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+//import me.confuser.barapi.BarAPI;
 
 public class Commands implements CommandExecutor, Listener {
 	public final Logger logger = Logger.getLogger("Example");
@@ -99,7 +101,6 @@ public class Commands implements CommandExecutor, Listener {
 		ItemMeta srvm = srv.getItemMeta();
 
 		srvm.setDisplayName(gold + "서바이벌 모드");
-		ArrayList<String> srvl = new ArrayList<String>();
 		srvm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "서바이벌 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 0"));
 		srv.setItemMeta(srvm);
 
@@ -107,7 +108,6 @@ public class Commands implements CommandExecutor, Listener {
 		ItemMeta ctvm = ctv.getItemMeta();
 
 		ctvm.setDisplayName(gold + "크리에이티브 모드");
-		ArrayList<String> ctvl = new ArrayList<String>();
 		ctvm.setLore(
 				Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "크리에이티브 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 1"));
 		ctv.setItemMeta(ctvm);
@@ -116,7 +116,6 @@ public class Commands implements CommandExecutor, Listener {
 		ItemMeta advm = adv.getItemMeta();
 
 		advm.setDisplayName(gold + "어드벤처 모드");
-		ArrayList<String> advl = new ArrayList<String>();
 		advm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "어드벤처 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 2"));
 		adv.setItemMeta(advm);
 
@@ -124,7 +123,6 @@ public class Commands implements CommandExecutor, Listener {
 		ItemMeta sptm = spt.getItemMeta();
 
 		sptm.setDisplayName(gold + "관전자 모드");
-		ArrayList<String> sptl = new ArrayList<String>();
 		sptm.setLore(Arrays.asList(gray + "플레이어의 게임모드를 " + gold + "관전자 모드" + gray + " 로 변경합니다.", "", blue + "-코드: 3"));
 		spt.setItemMeta(sptm);
 
@@ -160,9 +158,10 @@ public class Commands implements CommandExecutor, Listener {
 						player.sendMessage(green + "/blog config <string> : config.yml 파일에 있는 String 값을 읽어 출력합니다.");
 						player.sendMessage(green + "/blog tp <save/move> : 플레이어의 현재 좌표를 저장하거나 저장한 좌표로 텔레포트 합니다.");
 						player.sendMessage(green + "/blog inv : 플레이어의 게임모드 변경이 가능한 인벤토리 창을 띄웁니다.");
-						player.sendMessage(green + "/blog timer : 카운트 다운을 실행합니다. (10초)");
+						player.sendMessage(green + "/blog timer [bar] : 카운트 다운을 실행합니다. (10초)");
 						player.sendMessage(green + "/blog cancel : 지금 이 순간 플러그인을 통해 실행되는 모든 것을 취소합니다.");
 						player.sendMessage(green + "/blog time <7/12/18/24> : 플레이어가 있는 세계의 시간을 변경합니다.");
+						player.sendMessage(green + "/blog bossbar <show/hide/timer> : 플레이어에게 보스바 메세지를 출력합니다.");
 						player.sendMessage(aqua + "= = = = = = = = = = = = = = = = = = = =");
 					}
 
@@ -198,7 +197,7 @@ public class Commands implements CommandExecutor, Listener {
 								player.sendMessage(prefix + "second: " + gray + plugin.getConfig().getString("second"));
 							}
 						} else {
-							player.sendMessage(error + "예기치 못한 에러가 발생하였습니다. 개발자는 확인해 주시기 바랍니다. (ln=203)");
+							player.sendMessage(error + "예기치 못한 에러가 발생하였습니다. 개발자는 확인해 주시기 바랍니다. (ln=" + getLineNumber() + ")");
 						}
 					}
 
@@ -212,7 +211,7 @@ public class Commands implements CommandExecutor, Listener {
 						}
 
 						else {
-							player.sendMessage(error + "예기치 못한 에러가 발생했습니다. 개발자는 확인해 주세요. (ln=217)");
+							player.sendMessage(error + "예기치 못한 에러가 발생했습니다. 개발자는 확인해 주세요. (ln=" + getLineNumber() +")");
 						}
 					}
 
@@ -222,28 +221,65 @@ public class Commands implements CommandExecutor, Listener {
 					}
 					
 					else if (args[0].equalsIgnoreCase("timer")) {
-						player.sendMessage(prefix + green + "카운트 다운을 시작합니다.");
-						plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Runnable() {
-							public void run() {
-								for (Player p : Bukkit.getOnlinePlayers()) {
-									if (time != -1) {
-										if (time != 0) {
-											player.sendMessage(prefix + gold + "카운트 다운 : " + time + " 초");
-											player.playSound(location, Sound.ORB_PICKUP, 10F, 1F);
-											time--;
-										}
-										
-										else {
-											player.sendMessage(prefix + gold + "카운트 다운 종료!");
-											player.playSound(location, Sound.FIREWORK_TWINKLE, 10F, 1F);
-											time--;
-											time = 10;
-											Bukkit.getScheduler().cancelAllTasks();
+						if(args.length == 1) {
+							player.sendMessage(prefix + green + "카운트 다운을 시작합니다.");
+							plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+								public void run() {
+									for (Player p : Bukkit.getOnlinePlayers()) {
+										if (time != -1) {
+											if (time != 0) {
+												p.playSound(location, Sound.ORB_PICKUP, 10F, 1F);
+												
+												if (time < 6) {
+													p.sendMessage(prefix + gold + "카운트 다운 : " + time + " 초");
+												}
+												
+												time--;
+											}
+											else {
+												p.sendMessage(prefix + gold + "카운트 다운 종료!");
+												p.playSound(location, Sound.FIREWORK_TWINKLE, 10F, 1F);
+												time--;
+												time = 10;
+												Bukkit.getScheduler().cancelAllTasks();
+											}
 										}
 									}
 								}
+							}, 0L, 20L);
+						}
+						else {
+							if(args[1].equalsIgnoreCase("bar")) {
+								player.sendMessage(prefix + green + "카운트 다운을 시작합니다.");
+								plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+									public void run() {
+										for (Player p : Bukkit.getOnlinePlayers()) {
+											if (time != -1) {
+												if (time != 0) {
+													p.setLevel(time);
+													p.playSound(location, Sound.ORB_PICKUP, 10F, 1F);
+													
+													if (time < 6) {
+														p.setLevel(time);
+														p.sendMessage(prefix + gold + "카운트 다운 : " + time + " 초");
+													}
+													
+													time--;
+												}
+												else {
+													p.setLevel(0);
+													p.sendMessage(prefix + gold + "카운트 다운 종료!");
+													p.playSound(location, Sound.FIREWORK_TWINKLE, 10F, 1F);
+													time--;
+													time = 10;
+													Bukkit.getScheduler().cancelAllTasks();
+												}
+											}
+										}
+									}
+								}, 0L, 20L);
 							}
-						}, 0L, 20L);
+						}
 					}
 					
 					else if (args[0].equalsIgnoreCase("cancel")) {
@@ -276,6 +312,45 @@ public class Commands implements CommandExecutor, Listener {
 							else if (args[1].equalsIgnoreCase("24")) {
 								Bukkit.getWorld(world).setTime(18000);
 								player.sendMessage(prefix + "세계의 시간을 " + yellow + "AM 12:00" + white + " (으)로 변경하였습니다.");
+							}
+						}
+					}
+					
+//					else if (args[0].equalsIgnoreCase("bossbar")) {
+//						if (args.length == 1) {
+//							player.sendMessage(error + "인자 값이 너무 작거나 없습니다!" + yellow + " /blog help " + red
+//									+ "를 입력해 더 많은 커맨드를 알아보세요!");
+//						}
+//						else {
+//							if(args[1].equalsIgnoreCase("show")) {
+//								BarAPI.setMessage(player, yellow + "BarAPI 를 이용해 보스바 메세지를 출력합니다!", 100f);
+//							}
+//							else if(args[1].equalsIgnoreCase("hide")) {
+//								BarAPI.removeBar(player);
+//							}
+//							else if(args[1].equalsIgnoreCase("timer")) {
+//								BarAPI.setMessage(player, gold + "stageroad0820 님이 '경험치 x2' 이벤트를 1분간 실행했습니다!", 60);
+//							}
+//						}
+//					}
+					
+					else if(args[0].equalsIgnoreCase("potion")) {
+						if (args.length == 1) {
+							player.sendMessage(
+									error + "인자 값이 너무 작거나 없습니다!" + yellow + " /blog help " + red + "를 입력해 더 많은 커맨드를 알아보세요!");
+						}
+						else {
+							if(args[1].equalsIgnoreCase("nvision")) {
+								player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1200, 1, false, false));
+								player.sendMessage(prefix + "포션 효과 " + yellow + "'야간 투시 (1:00)'" + white + " (이)가 적용되었습니다!");
+							}
+							else if(args[1].equalsIgnoreCase("speed")) {
+								player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, 1, false, false));
+								player.sendMessage(prefix + "포션 효과 " + yellow + "'신속 (1:00)'" + white + " (이)가 적용되었습니다!");
+							}
+							else {
+								player.sendMessage(error + "알 수 없는 포션 효과 입니다. 아래의 목록에 있는 포션 효과를 입력해 주세요.");
+								player.sendMessage(error + yellow + "nvision, speed");
 							}
 						}
 					}
@@ -324,7 +399,7 @@ public class Commands implements CommandExecutor, Listener {
 							}
 
 							else {
-								player.sendMessage(error + "예기치 못한 에러가 발생하였습니다. 개발자는 확인해 주시기 바랍니다. (ln=262)");
+								player.sendMessage(error + "예기치 못한 에러가 발생하였습니다. 개발자는 확인해 주시기 바랍니다. (ln=" + getLineNumber() + ")");
 							}
 						}
 					}
@@ -363,5 +438,9 @@ public class Commands implements CommandExecutor, Listener {
 
 	public void console(String msg) {
 		Bukkit.getConsoleSender().sendMessage(msg);
+	}
+	
+	public static int getLineNumber() {
+		return Thread.currentThread().getStackTrace()[2].getLineNumber();
 	}
 }

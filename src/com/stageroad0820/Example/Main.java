@@ -1,41 +1,42 @@
 package com.stageroad0820.Example;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.FurnaceRecipe;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 public class Main extends JavaPlugin implements Listener {
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
+	
+	private Scoreboard board;
+	private Objective ob;
+	private Score score;
 
 	PluginDescriptionFile pdfFile = this.getDescription();
 	PluginManager pm = Bukkit.getPluginManager();
@@ -136,7 +137,6 @@ public class Main extends JavaPlugin implements Listener {
 		ItemMeta im = is.getItemMeta();
 
 		im.setDisplayName(aqua + "체력 회복");
-		ArrayList<String> il = new ArrayList<>();
 		im.setLore(Arrays.asList(gray + "마나를 3 소모하여 캐릭터의 체력을 모두 회복합니다."));
 		is.setItemMeta(im);
 
@@ -162,12 +162,13 @@ public class Main extends JavaPlugin implements Listener {
 		ItemMeta im = is.getItemMeta();
 
 		im.setDisplayName(aqua + "체력 회복");
-		ArrayList<String> il = new ArrayList<>();
 		im.setLore(Arrays.asList(gray + "마나를 3 소모하여 캐릭터의 체력을 모두 회복합니다."));
 		is.setItemMeta(im);
 
 		player.getInventory().addItem(is);
 
+		scboard(player);
+		
 		event.setJoinMessage(prefix + yellow + player.getName() + white + " 님이 서버에 접속하셨습니다!");
 	}
 
@@ -179,7 +180,6 @@ public class Main extends JavaPlugin implements Listener {
 		ItemMeta im = is.getItemMeta();
 
 		im.setDisplayName(aqua + "체력 회복");
-		ArrayList<String> il = new ArrayList<>();
 		im.setLore(Arrays.asList(gray + "마나를 3 소모하여 캐릭터의 체력을 모두 회복합니다."));
 		is.setItemMeta(im);
 
@@ -187,6 +187,28 @@ public class Main extends JavaPlugin implements Listener {
 
 		event.setQuitMessage(prefix + yellow + player.getName() + white + " 님이 서버에서 나가셨습니다!");
 	}
+	
+	@SuppressWarnings("deprecation")
+	public void scboard (Player player) {
+        ScoreboardManager sm = Bukkit.getScoreboardManager();
+        
+        board = sm.getNewScoreboard();
+        ob = board.registerNewObjective("Test", "dummy");
+        score = ob.getScore("Score");
+        
+        Team team = board.registerNewTeam("TestTeam");
+        
+        team.addPlayer(player);
+        team.setPrefix(green + "");
+        team.setCanSeeFriendlyInvisibles(true);
+       
+        ob.setDisplayName(aqua + "스코어보드 테스트!");
+        ob.setDisplaySlot(DisplaySlot.SIDEBAR);
+       
+        score.setScore(20);
+       
+        player.setScoreboard(board);
+    }
 
 	public void console(String msg) {
 		Bukkit.getConsoleSender().sendMessage(msg);

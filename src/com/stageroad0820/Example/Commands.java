@@ -134,7 +134,6 @@ public class Commands implements CommandExecutor, Listener {
 		player.openInventory(inv);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		
@@ -161,7 +160,9 @@ public class Commands implements CommandExecutor, Listener {
 						player.sendMessage(green + "/blog timer [bar] : 카운트 다운을 실행합니다. (10초)");
 						player.sendMessage(green + "/blog cancel : 지금 이 순간 플러그인을 통해 실행되는 모든 것을 취소합니다.");
 						player.sendMessage(green + "/blog time <7/12/18/24> : 플레이어가 있는 세계의 시간을 변경합니다.");
-						player.sendMessage(green + "/blog bossbar <show/hide/timer> : 플레이어에게 보스바 메세지를 출력합니다.");
+						player.sendMessage(red + "/blog bossbar <show/hide/timer> : 플레이어에게 보스바 메세지를 출력합니다.");
+						player.sendMessage(green + "/blog potion <nvision, speed> : 플레이어에게 입력한 포션효과를 각각 1분씩 부여합니다.");
+						player.sendMessage(green + "/blog nickname <'String'/reset> : 플레이어의 닉네임을 'String' 으로 변경하고, reset 으로 초기화 합니다.");
 						player.sendMessage(aqua + "= = = = = = = = = = = = = = = = = = = =");
 					}
 
@@ -228,7 +229,7 @@ public class Commands implements CommandExecutor, Listener {
 									for (Player p : Bukkit.getOnlinePlayers()) {
 										if (time != -1) {
 											if (time != 0) {
-												p.playSound(location, Sound.ORB_PICKUP, 10F, 1F);
+												p.playSound(location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10F, 1F);
 												
 												if (time < 6) {
 													p.sendMessage(prefix + gold + "카운트 다운 : " + time + " 초");
@@ -238,7 +239,7 @@ public class Commands implements CommandExecutor, Listener {
 											}
 											else {
 												p.sendMessage(prefix + gold + "카운트 다운 종료!");
-												p.playSound(location, Sound.FIREWORK_TWINKLE, 10F, 1F);
+												p.playSound(location, Sound.ENTITY_FIREWORK_TWINKLE, 10F, 1F);
 												time--;
 												time = 10;
 												Bukkit.getScheduler().cancelAllTasks();
@@ -257,7 +258,7 @@ public class Commands implements CommandExecutor, Listener {
 											if (time != -1) {
 												if (time != 0) {
 													p.setLevel(time);
-													p.playSound(location, Sound.ORB_PICKUP, 10F, 1F);
+													p.playSound(location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10F, 1F);
 													
 													if (time < 6) {
 														p.setLevel(time);
@@ -269,7 +270,7 @@ public class Commands implements CommandExecutor, Listener {
 												else {
 													p.setLevel(0);
 													p.sendMessage(prefix + gold + "카운트 다운 종료!");
-													p.playSound(location, Sound.FIREWORK_TWINKLE, 10F, 1F);
+													p.playSound(location, Sound.ENTITY_FIREWORK_TWINKLE, 10F, 1F);
 													time--;
 													time = 10;
 													Bukkit.getScheduler().cancelAllTasks();
@@ -351,6 +352,74 @@ public class Commands implements CommandExecutor, Listener {
 							else {
 								player.sendMessage(error + "알 수 없는 포션 효과 입니다. 아래의 목록에 있는 포션 효과를 입력해 주세요.");
 								player.sendMessage(error + yellow + "nvision, speed");
+							}
+						}
+					}
+					
+					else if(args[0].equalsIgnoreCase("nickname")) {
+						if (args.length == 1) {
+							player.sendMessage(
+									error + "인자 값이 너무 작거나 없습니다!" + yellow + " /blog help " + red + "를 입력해 더 많은 커맨드를 알아보세요!");
+						}
+						else {
+							String realName = player.getName();
+							
+							if(args[1].equals("reset")) {
+								player.setDisplayName(realName);
+								player.setPlayerListName(realName);
+								
+								player.sendMessage(prefix + "플레이어의 이름을 원래대로 설정하였습니다.");
+							}
+							else if(args[1].equals(realName) || args[1].equals(player.getDisplayName())){
+								player.sendMessage(error + "변경하려는 이름이 현재 설정된 이름과 동일합니다. 다시 입력해 주세요!");
+							}
+							else {
+								player.setDisplayName(args[1]);
+								player.setPlayerListName(args[1]);
+								
+								player.sendMessage(prefix + "플레이어의 닉네임이 " + yellow + realName + white + " 에서 " 
+										+ yellow + player.getDisplayName() + white + " (으)로 변경되었습니다.");
+							}
+						}
+					}
+					
+					else if(args[0].equalsIgnoreCase("enum")) {
+						if (args.length == 1) {
+							player.sendMessage(error + "열거 값이 입력되지 않거나 알 수 없는 열거형 값입니다. 아래의 값을 참고해 주세요.");
+							player.sendMessage(error + yellow + "apple, chocolate, ramen, rice, corn, sugar_cube");
+						}
+						else {
+							for (EnumTest e : EnumTest.getFoods()) {
+								if(args[1].equalsIgnoreCase(e.foodName)) {
+									String result = e.healthy ? "건강한 음식입니다." : "건강하지 않은 음식입니다.";
+									String fdName = "";
+									
+									switch(e.foodName) {
+									case "apple":
+										fdName = "사과";
+										break;
+									case "chocolate":
+										fdName = "초콜릿";
+										break;
+									case "ramen":
+										fdName = "라면";
+										break;
+									case "rice":
+										fdName = "밥";
+										break;
+									case "corn":
+										fdName = "옥수수";
+										break;
+									case "sugar_cube":
+										fdName = "각설탕";
+										break;
+									default:
+										break;
+									}
+									
+									player.sendMessage(prefix + fdName + " 은(는) " + result);
+									break;
+								}
 							}
 						}
 					}

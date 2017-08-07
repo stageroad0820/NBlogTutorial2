@@ -30,6 +30,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
+@SuppressWarnings("deprecation")
 public class Main extends JavaPlugin implements Listener {
 	public final Logger logger = Logger.getLogger("Minecraft");
 	public static Main plugin;
@@ -188,7 +189,6 @@ public class Main extends JavaPlugin implements Listener {
 		event.setQuitMessage(prefix + yellow + player.getName() + white + " 님이 서버에서 나가셨습니다!");
 	}
 	
-	@SuppressWarnings("deprecation")
 	public void scboard (Player player) {
         ScoreboardManager sm = Bukkit.getScoreboardManager();
         

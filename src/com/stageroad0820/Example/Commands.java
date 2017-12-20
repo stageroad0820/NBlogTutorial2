@@ -35,7 +35,7 @@ public class Commands implements CommandExecutor, Listener {
 	
 	PluginManager pm = Bukkit.getPluginManager();
 
-	// ¸¹ÀÌ ¾²ÀÌ´Â String °ª Á¤¸®
+	// ë§ì´ ì“°ì´ëŠ” String ê°’ ì •ë¦¬
 	String prefix = ChatColor.AQUA + "[TUT] " + ChatColor.WHITE + "";
 	String info = ChatColor.YELLOW + "[Info] " + ChatColor.WHITE + "";
 	String error = ChatColor.DARK_RED + "[Error] " + ChatColor.RED + "";
@@ -45,7 +45,7 @@ public class Commands implements CommandExecutor, Listener {
 	String pname = plname + " v" + plvers + " ";
 	String cinfo = info + ChatColor.YELLOW + pname + ChatColor.WHITE + " ";
 
-	// ¸¹ÀÌ ¾²ÀÌ´Â »ö±ò ÄÚµå Á¤¸® (ChatColor.<Color>)
+	// ë§ì´ ì“°ì´ëŠ” ìƒ‰ê¹” ì½”ë“œ ì •ë¦¬ (ChatColor.<Color>)
 	String white = ChatColor.WHITE + "";
 	String red = ChatColor.RED + "";
 	String dred = ChatColor.DARK_RED + "";
@@ -64,66 +64,66 @@ public class Commands implements CommandExecutor, Listener {
 	public void onInvClick(InventoryClickEvent event) {
 		Player player = (Player) event.getWhoClicked();
 
-		if (!event.getInventory().getTitle().equalsIgnoreCase("°ÔÀÓ¸ğµå º¯°æ"))
+		if (!event.getInventory().getTitle().equalsIgnoreCase("ê²Œì„ëª¨ë“œ ë³€ê²½"))
 			return;
 
 		switch (event.getCurrentItem().getType()) {
 		case WORKBENCH:
 			player.setGameMode(GameMode.SURVIVAL);
 			player.closeInventory();
-			player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + red + "¼­¹ÙÀÌ¹ú ¸ğµå" + white + " ·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+			player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + red + "ì„œë°”ì´ë²Œ ëª¨ë“œ" + white + " ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			break;
 		case DIAMOND_BLOCK:
 			player.setGameMode(GameMode.CREATIVE);
 			player.closeInventory();
-			player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + red + "Å©¸®¿¡ÀÌÆ¼ºê ¸ğµå" + white + " ·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+			player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + red + "í¬ë¦¬ì—ì´í‹°ë¸Œ ëª¨ë“œ" + white + " ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			break;
 		case LEATHER_HELMET:
 			player.setGameMode(GameMode.ADVENTURE);
 			player.closeInventory();
-			player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + red + "¾îµåº¥Ã³ ¸ğµå" + white + " ·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+			player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + red + "ì–´ë“œë²¤ì²˜ ëª¨ë“œ" + white + " ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			break;
 		case GLASS:
 			player.setGameMode(GameMode.SPECTATOR);
 			player.closeInventory();
-			player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + red + "°üÀüÀÚ ¸ğµå" + white + " ·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+			player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + red + "ê´€ì „ì ëª¨ë“œ" + white + " ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			break;
 		default:
-			Bukkit.broadcastMessage(warning + "µğ¹ö±×: switch~case ¿¡¼­ default: °¡ ½ÇÇàµÇ¾ú½À´Ï´Ù.");
+			Bukkit.broadcastMessage(warning + "ë””ë²„ê·¸: switch~case ì—ì„œ default: ê°€ ì‹¤í–‰ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			break;
 		}
 	}
 
 	public void openInv(Player player) {
-		Inventory inv = Bukkit.createInventory(null, 27, "°ÔÀÓ¸ğµå º¯°æ");
+		Inventory inv = Bukkit.createInventory(null, 27, "ê²Œì„ëª¨ë“œ ë³€ê²½");
 
 		ItemStack srv = new ItemStack(Material.WORKBENCH);
 		ItemMeta srvm = srv.getItemMeta();
 
-		srvm.setDisplayName(gold + "¼­¹ÙÀÌ¹ú ¸ğµå");
-		srvm.setLore(Arrays.asList(gray + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + gold + "¼­¹ÙÀÌ¹ú ¸ğµå" + gray + " ·Î º¯°æÇÕ´Ï´Ù.", "", blue + "-ÄÚµå: 0"));
+		srvm.setDisplayName(gold + "ì„œë°”ì´ë²Œ ëª¨ë“œ");
+		srvm.setLore(Arrays.asList(gray + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + gold + "ì„œë°”ì´ë²Œ ëª¨ë“œ" + gray + " ë¡œ ë³€ê²½í•©ë‹ˆë‹¤.", "", blue + "-ì½”ë“œ: 0"));
 		srv.setItemMeta(srvm);
 
 		ItemStack ctv = new ItemStack(Material.DIAMOND_BLOCK);
 		ItemMeta ctvm = ctv.getItemMeta();
 
-		ctvm.setDisplayName(gold + "Å©¸®¿¡ÀÌÆ¼ºê ¸ğµå");
+		ctvm.setDisplayName(gold + "í¬ë¦¬ì—ì´í‹°ë¸Œ ëª¨ë“œ");
 		ctvm.setLore(
-				Arrays.asList(gray + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + gold + "Å©¸®¿¡ÀÌÆ¼ºê ¸ğµå" + gray + " ·Î º¯°æÇÕ´Ï´Ù.", "", blue + "-ÄÚµå: 1"));
+				Arrays.asList(gray + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + gold + "í¬ë¦¬ì—ì´í‹°ë¸Œ ëª¨ë“œ" + gray + " ë¡œ ë³€ê²½í•©ë‹ˆë‹¤.", "", blue + "-ì½”ë“œ: 1"));
 		ctv.setItemMeta(ctvm);
 
 		ItemStack adv = new ItemStack(Material.LEATHER_HELMET);
 		ItemMeta advm = adv.getItemMeta();
 
-		advm.setDisplayName(gold + "¾îµåº¥Ã³ ¸ğµå");
-		advm.setLore(Arrays.asList(gray + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + gold + "¾îµåº¥Ã³ ¸ğµå" + gray + " ·Î º¯°æÇÕ´Ï´Ù.", "", blue + "-ÄÚµå: 2"));
+		advm.setDisplayName(gold + "ì–´ë“œë²¤ì²˜ ëª¨ë“œ");
+		advm.setLore(Arrays.asList(gray + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + gold + "ì–´ë“œë²¤ì²˜ ëª¨ë“œ" + gray + " ë¡œ ë³€ê²½í•©ë‹ˆë‹¤.", "", blue + "-ì½”ë“œ: 2"));
 		adv.setItemMeta(advm);
 
 		ItemStack spt = new ItemStack(Material.GLASS);
 		ItemMeta sptm = spt.getItemMeta();
 
-		sptm.setDisplayName(gold + "°üÀüÀÚ ¸ğµå");
-		sptm.setLore(Arrays.asList(gray + "ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå¸¦ " + gold + "°üÀüÀÚ ¸ğµå" + gray + " ·Î º¯°æÇÕ´Ï´Ù.", "", blue + "-ÄÚµå: 3"));
+		sptm.setDisplayName(gold + "ê´€ì „ì ëª¨ë“œ");
+		sptm.setLore(Arrays.asList(gray + "í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œë¥¼ " + gold + "ê´€ì „ì ëª¨ë“œ" + gray + " ë¡œ ë³€ê²½í•©ë‹ˆë‹¤.", "", blue + "-ì½”ë“œ: 3"));
 		spt.setItemMeta(sptm);
 
 		inv.setItem(10, srv);
@@ -142,27 +142,27 @@ public class Commands implements CommandExecutor, Listener {
 			Location location = player.getLocation();
 			String world = player.getWorld().getName();
 
-			// "/blog" Ä¿¸Çµå!
+			// "/blog" ì»¤ë§¨ë“œ!
 			if (commandLabel.equalsIgnoreCase("blog")) {
 				if (args.length == 0) {
 					player.sendMessage(
-							error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red + "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+							error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red + "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 				}
 
 				else if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("help")) {
-						player.sendMessage(aqua + "= = = = = = = ºí·Î±× Æ©Åä¸®¾ó = = = = = = =");
-						player.sendMessage(green + "/blog help : µµ¿ò¸»À» Ç¥½ÃÇÕ´Ï´Ù");
-						player.sendMessage(green + "/blog random : ·£´ıÀ¸·Î ¸Ş¼¼Áö 1°³¸¦ Ç¥½ÃÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog config <string> : config.yml ÆÄÀÏ¿¡ ÀÖ´Â String °ªÀ» ÀĞ¾î Ãâ·ÂÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog tp <save/move> : ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç ÁÂÇ¥¸¦ ÀúÀåÇÏ°Å³ª ÀúÀåÇÑ ÁÂÇ¥·Î ÅÚ·¹Æ÷Æ® ÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog inv : ÇÃ·¹ÀÌ¾îÀÇ °ÔÀÓ¸ğµå º¯°æÀÌ °¡´ÉÇÑ ÀÎº¥Åä¸® Ã¢À» ¶ç¿ó´Ï´Ù.");
-						player.sendMessage(green + "/blog timer [bar] : Ä«¿îÆ® ´Ù¿îÀ» ½ÇÇàÇÕ´Ï´Ù. (10ÃÊ)");
-						player.sendMessage(green + "/blog cancel : Áö±İ ÀÌ ¼ø°£ ÇÃ·¯±×ÀÎÀ» ÅëÇØ ½ÇÇàµÇ´Â ¸ğµç °ÍÀ» Ãë¼ÒÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog time <7/12/18/24> : ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â ¼¼°èÀÇ ½Ã°£À» º¯°æÇÕ´Ï´Ù.");
-						player.sendMessage(red + "/blog bossbar <show/hide/timer> : ÇÃ·¹ÀÌ¾î¿¡°Ô º¸½º¹Ù ¸Ş¼¼Áö¸¦ Ãâ·ÂÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog potion <nvision, speed> : ÇÃ·¹ÀÌ¾î¿¡°Ô ÀÔ·ÂÇÑ Æ÷¼ÇÈ¿°ú¸¦ °¢°¢ 1ºĞ¾¿ ºÎ¿©ÇÕ´Ï´Ù.");
-						player.sendMessage(green + "/blog nickname <'String'/reset> : ÇÃ·¹ÀÌ¾îÀÇ ´Ğ³×ÀÓÀ» 'String' À¸·Î º¯°æÇÏ°í, reset À¸·Î ÃÊ±âÈ­ ÇÕ´Ï´Ù.");
+						player.sendMessage(aqua + "= = = = = = = ë¸”ë¡œê·¸ íŠœí† ë¦¬ì–¼ = = = = = = =");
+						player.sendMessage(green + "/blog help : ë„ì›€ë§ì„ í‘œì‹œí•©ë‹ˆë‹¤");
+						player.sendMessage(green + "/blog random : ëœë¤ìœ¼ë¡œ ë©”ì„¸ì§€ 1ê°œë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog config <string> : config.yml íŒŒì¼ì— ìˆëŠ” String ê°’ì„ ì½ì–´ ì¶œë ¥í•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog tp <save/move> : í”Œë ˆì´ì–´ì˜ í˜„ì¬ ì¢Œí‘œë¥¼ ì €ì¥í•˜ê±°ë‚˜ ì €ì¥í•œ ì¢Œí‘œë¡œ í…”ë ˆí¬íŠ¸ í•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog inv : í”Œë ˆì´ì–´ì˜ ê²Œì„ëª¨ë“œ ë³€ê²½ì´ ê°€ëŠ¥í•œ ì¸ë²¤í† ë¦¬ ì°½ì„ ë„ì›ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog timer [bar] : ì¹´ìš´íŠ¸ ë‹¤ìš´ì„ ì‹¤í–‰í•©ë‹ˆë‹¤. (10ì´ˆ)");
+						player.sendMessage(green + "/blog cancel : ì§€ê¸ˆ ì´ ìˆœê°„ í”ŒëŸ¬ê·¸ì¸ì„ í†µí•´ ì‹¤í–‰ë˜ëŠ” ëª¨ë“  ê²ƒì„ ì·¨ì†Œí•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog time <7/12/18/24> : í”Œë ˆì´ì–´ê°€ ìˆëŠ” ì„¸ê³„ì˜ ì‹œê°„ì„ ë³€ê²½í•©ë‹ˆë‹¤.");
+						player.sendMessage(red + "/blog bossbar <show/hide/timer> : í”Œë ˆì´ì–´ì—ê²Œ ë³´ìŠ¤ë°” ë©”ì„¸ì§€ë¥¼ ì¶œë ¥í•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog potion <nvision, speed> : í”Œë ˆì´ì–´ì—ê²Œ ì…ë ¥í•œ í¬ì…˜íš¨ê³¼ë¥¼ ê°ê° 1ë¶„ì”© ë¶€ì—¬í•©ë‹ˆë‹¤.");
+						player.sendMessage(green + "/blog nickname <'String'/reset> : í”Œë ˆì´ì–´ì˜ ë‹‰ë„¤ì„ì„ 'String' ìœ¼ë¡œ ë³€ê²½í•˜ê³ , reset ìœ¼ë¡œ ì´ˆê¸°í™” í•©ë‹ˆë‹¤.");
 						player.sendMessage(aqua + "= = = = = = = = = = = = = = = = = = = =");
 					}
 
@@ -171,59 +171,59 @@ public class Commands implements CommandExecutor, Listener {
 
 						switch (random) {
 						case 0:
-							player.sendMessage(gold + "ÀüÃ¼ ¸Ş¼¼Áö Áß Ã¹¹øÂ° ¸Ş¼¼Áö°¡ ·£´ıÀ¸·Î Ãâ·ÂµÇ¾ú½À´Ï´Ù!");
+							player.sendMessage(gold + "ì „ì²´ ë©”ì„¸ì§€ ì¤‘ ì²«ë²ˆì§¸ ë©”ì„¸ì§€ê°€ ëœë¤ìœ¼ë¡œ ì¶œë ¥ë˜ì—ˆìŠµë‹ˆë‹¤!");
 							break;
 						case 1:
-							player.sendMessage(gold + "ÀüÃ¼ ¸Ş¼¼Áö Áß µÎ¹øÂ° ¸Ş¼¼Áö°¡ ·£´ıÀ¸·Î Ãâ·ÂµÇ¾ú½À´Ï´Ù!");
+							player.sendMessage(gold + "ì „ì²´ ë©”ì„¸ì§€ ì¤‘ ë‘ë²ˆì§¸ ë©”ì„¸ì§€ê°€ ëœë¤ìœ¼ë¡œ ì¶œë ¥ë˜ì—ˆìŠµë‹ˆë‹¤!");
 							break;
 						case 2:
-							player.sendMessage(gold + "ÀüÃ¼ ¸Ş¼¼Áö Áß ¼¼¹øÂ° ¸Ş¼¼Áö°¡ ·£´ıÀ¸·Î Ãâ·ÂµÇ¾ú½À´Ï´Ù!");
+							player.sendMessage(gold + "ì „ì²´ ë©”ì„¸ì§€ ì¤‘ ì„¸ë²ˆì§¸ ë©”ì„¸ì§€ê°€ ëœë¤ìœ¼ë¡œ ì¶œë ¥ë˜ì—ˆìŠµë‹ˆë‹¤!");
 							break;
 						default:
-							player.sendMessage(warning + "¿¹¿Ü Ã³¸® µÇÁö ¾ÊÀº »óÈ²ÀÌ ¹ß»ıÇÏ¿´½À´Ï´Ù!");
+							player.sendMessage(warning + "ì˜ˆì™¸ ì²˜ë¦¬ ë˜ì§€ ì•Šì€ ìƒí™©ì´ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤!");
 							break;
 						}
 					}
 
 					else if (args[0].equalsIgnoreCase("config")) {
 						if (args.length == 1) {
-							player.sendMessage(error + "ÀÔ·ÂÇÏ½Å ÀÎÀÚ°ªÀÌ ³Ê¹« Àû°Å³ª ¾ø½À´Ï´Ù. ¾Æ·¡ÀÇ ¸ñ·Ï¿¡¼­ config ¿¡ µî·ÏµÈ ÀÌ¸§À» Ã£À» ¼ö ÀÖ½À´Ï´Ù.");
-							player.sendMessage(error + "config.yml ¿¡ ÀÖ´Â ³»¿ë: " + yellow + "first, second");
+							player.sendMessage(error + "ì…ë ¥í•˜ì‹  ì¸ìê°’ì´ ë„ˆë¬´ ì ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤. ì•„ë˜ì˜ ëª©ë¡ì—ì„œ config ì— ë“±ë¡ëœ ì´ë¦„ì„ ì°¾ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
+							player.sendMessage(error + "config.yml ì— ìˆëŠ” ë‚´ìš©: " + yellow + "first, second");
 						} else if (args.length > 1) {
 							if (args[1].equalsIgnoreCase("first")) {
-								player.sendMessage(prefix + "config.yml ÀÇ first ¸Ş¼¼Áö ÀÔ´Ï´Ù.");
+								player.sendMessage(prefix + "config.yml ì˜ first ë©”ì„¸ì§€ ì…ë‹ˆë‹¤.");
 								player.sendMessage(prefix + "first: " + gray + plugin.getConfig().getString("first"));
 							} else if (args[1].equalsIgnoreCase("second")) {
-								player.sendMessage(prefix + "config.yml ÀÇ second ¸Ş¼¼Áö ÀÔ´Ï´Ù.");
+								player.sendMessage(prefix + "config.yml ì˜ second ë©”ì„¸ì§€ ì…ë‹ˆë‹¤.");
 								player.sendMessage(prefix + "second: " + gray + plugin.getConfig().getString("second"));
 							}
 						} else {
-							player.sendMessage(error + "¿¹±âÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. °³¹ßÀÚ´Â È®ÀÎÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. (ln=" + getLineNumber() + ")");
+							player.sendMessage(error + "ì˜ˆê¸°ì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ê°œë°œìëŠ” í™•ì¸í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. (ln=" + getLineNumber() + ")");
 						}
 					}
 
 					else if (args[0].equalsIgnoreCase("perm")) {
 						if (player.hasPermission(new Permissions().Example)) {
-							player.sendMessage(prefix + "ÇöÀç " + aqua + "Example.bypass" + white + " ±ÇÇÑÀ» °¡Áö°í ÀÖ½À´Ï´Ù.");
+							player.sendMessage(prefix + "í˜„ì¬ " + aqua + "Example.bypass" + white + " ê¶Œí•œì„ ê°€ì§€ê³  ìˆìŠµë‹ˆë‹¤.");
 						}
 
 						else if (!player.hasPermission(new Permissions().Example)) {
-							player.sendMessage(prefix + "ÇöÀç " + aqua + "Example.bypass" + white + " ±ÇÇÑÀ» °¡Áö°í ÀÖÁö ¾Ê½À´Ï´Ù.");
+							player.sendMessage(prefix + "í˜„ì¬ " + aqua + "Example.bypass" + white + " ê¶Œí•œì„ ê°€ì§€ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤.");
 						}
 
 						else {
-							player.sendMessage(error + "¿¹±âÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇß½À´Ï´Ù. °³¹ßÀÚ´Â È®ÀÎÇØ ÁÖ¼¼¿ä. (ln=" + getLineNumber() +")");
+							player.sendMessage(error + "ì˜ˆê¸°ì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤. ê°œë°œìëŠ” í™•ì¸í•´ ì£¼ì„¸ìš”. (ln=" + getLineNumber() +")");
 						}
 					}
 
 					else if (args[0].equalsIgnoreCase("inv")) {
 						openInv(player);
-						player.sendMessage(prefix + "°ÔÀÓ¸ğµå º¯°æÀÌ °¡´ÉÇÑ ÀÎº¥Åä¸® Ã¢À» ¶ç¿ü½À´Ï´Ù. ESC Å°¸¦ ÀÌ¿ëÇØ ´İÀ» ¼ö ÀÖ½À´Ï´Ù.");
+						player.sendMessage(prefix + "ê²Œì„ëª¨ë“œ ë³€ê²½ì´ ê°€ëŠ¥í•œ ì¸ë²¤í† ë¦¬ ì°½ì„ ë„ì› ìŠµë‹ˆë‹¤. ESC í‚¤ë¥¼ ì´ìš©í•´ ë‹«ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.");
 					}
 					
 					else if (args[0].equalsIgnoreCase("timer")) {
 						if(args.length == 1) {
-							player.sendMessage(prefix + green + "Ä«¿îÆ® ´Ù¿îÀ» ½ÃÀÛÇÕ´Ï´Ù.");
+							player.sendMessage(prefix + green + "ì¹´ìš´íŠ¸ ë‹¤ìš´ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
 							plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 								public void run() {
 									for (Player p : Bukkit.getOnlinePlayers()) {
@@ -232,13 +232,13 @@ public class Commands implements CommandExecutor, Listener {
 												p.playSound(location, Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 10F, 1F);
 												
 												if (time < 6) {
-													p.sendMessage(prefix + gold + "Ä«¿îÆ® ´Ù¿î : " + time + " ÃÊ");
+													p.sendMessage(prefix + gold + "ì¹´ìš´íŠ¸ ë‹¤ìš´ : " + time + " ì´ˆ");
 												}
 												
 												time--;
 											}
 											else {
-												p.sendMessage(prefix + gold + "Ä«¿îÆ® ´Ù¿î Á¾·á!");
+												p.sendMessage(prefix + gold + "ì¹´ìš´íŠ¸ ë‹¤ìš´ ì¢…ë£Œ!");
 												p.playSound(location, Sound.ENTITY_FIREWORK_TWINKLE, 10F, 1F);
 												time--;
 												time = 10;
@@ -251,7 +251,7 @@ public class Commands implements CommandExecutor, Listener {
 						}
 						else {
 							if(args[1].equalsIgnoreCase("bar")) {
-								player.sendMessage(prefix + green + "Ä«¿îÆ® ´Ù¿îÀ» ½ÃÀÛÇÕ´Ï´Ù.");
+								player.sendMessage(prefix + green + "ì¹´ìš´íŠ¸ ë‹¤ìš´ì„ ì‹œì‘í•©ë‹ˆë‹¤.");
 								plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 									public void run() {
 										for (Player p : Bukkit.getOnlinePlayers()) {
@@ -262,14 +262,14 @@ public class Commands implements CommandExecutor, Listener {
 													
 													if (time < 6) {
 														p.setLevel(time);
-														p.sendMessage(prefix + gold + "Ä«¿îÆ® ´Ù¿î : " + time + " ÃÊ");
+														p.sendMessage(prefix + gold + "ì¹´ìš´íŠ¸ ë‹¤ìš´ : " + time + " ì´ˆ");
 													}
 													
 													time--;
 												}
 												else {
 													p.setLevel(0);
-													p.sendMessage(prefix + gold + "Ä«¿îÆ® ´Ù¿î Á¾·á!");
+													p.sendMessage(prefix + gold + "ì¹´ìš´íŠ¸ ë‹¤ìš´ ì¢…ë£Œ!");
 													p.playSound(location, Sound.ENTITY_FIREWORK_TWINKLE, 10F, 1F);
 													time--;
 													time = 10;
@@ -284,53 +284,53 @@ public class Commands implements CommandExecutor, Listener {
 					}
 					
 					else if (args[0].equalsIgnoreCase("cancel")) {
-						player.sendMessage(prefix + red + "Ä«¿îÆ® ´Ù¿îÀÌ °­Á¦·Î Á¾·áµÇ¾ú½À´Ï´Ù.");
+						player.sendMessage(prefix + red + "ì¹´ìš´íŠ¸ ë‹¤ìš´ì´ ê°•ì œë¡œ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 						Bukkit.getScheduler().cancelAllTasks();
 						time = 10;
 					}
 					
 					else if (args[0].equalsIgnoreCase("time")) {
 						if (args.length <= 1) {
-							player.sendMessage(error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red
-									+ "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+							player.sendMessage(error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red
+									+ "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 						}
 						else if (args.length > 1){
 							if (args[1].equalsIgnoreCase("7")) {
 								Bukkit.getWorld(world).setTime(0);
-								player.sendMessage(prefix + "¼¼°èÀÇ ½Ã°£À» " + yellow + "AM 07:00" + white + " (À¸)·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+								player.sendMessage(prefix + "ì„¸ê³„ì˜ ì‹œê°„ì„ " + yellow + "AM 07:00" + white + " (ìœ¼)ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 							}
 							
 							else if (args[1].equalsIgnoreCase("12")) {
 								Bukkit.getWorld(world).setTime(6000);
-								player.sendMessage(prefix + "¼¼°èÀÇ ½Ã°£À» " + yellow + "PM 12:00" + white + " (À¸)·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+								player.sendMessage(prefix + "ì„¸ê³„ì˜ ì‹œê°„ì„ " + yellow + "PM 12:00" + white + " (ìœ¼)ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 							}
 							
 							else if (args[1].equalsIgnoreCase("18")) {
 								Bukkit.getWorld(world).setTime(12000);
-								player.sendMessage(prefix + "¼¼°èÀÇ ½Ã°£À» " + yellow + "PM 06:00" + white + " (À¸)·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+								player.sendMessage(prefix + "ì„¸ê³„ì˜ ì‹œê°„ì„ " + yellow + "PM 06:00" + white + " (ìœ¼)ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 							}
 							
 							else if (args[1].equalsIgnoreCase("24")) {
 								Bukkit.getWorld(world).setTime(18000);
-								player.sendMessage(prefix + "¼¼°èÀÇ ½Ã°£À» " + yellow + "AM 12:00" + white + " (À¸)·Î º¯°æÇÏ¿´½À´Ï´Ù.");
+								player.sendMessage(prefix + "ì„¸ê³„ì˜ ì‹œê°„ì„ " + yellow + "AM 12:00" + white + " (ìœ¼)ë¡œ ë³€ê²½í•˜ì˜€ìŠµë‹ˆë‹¤.");
 							}
 						}
 					}
 					
 //					else if (args[0].equalsIgnoreCase("bossbar")) {
 //						if (args.length == 1) {
-//							player.sendMessage(error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red
-//									+ "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+//							player.sendMessage(error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red
+//									+ "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 //						}
 //						else {
 //							if(args[1].equalsIgnoreCase("show")) {
-//								BarAPI.setMessage(player, yellow + "BarAPI ¸¦ ÀÌ¿ëÇØ º¸½º¹Ù ¸Ş¼¼Áö¸¦ Ãâ·ÂÇÕ´Ï´Ù!", 100f);
+//								BarAPI.setMessage(player, yellow + "BarAPI ë¥¼ ì´ìš©í•´ ë³´ìŠ¤ë°” ë©”ì„¸ì§€ë¥¼ ì¶œë ¥í•©ë‹ˆë‹¤!", 100f);
 //							}
 //							else if(args[1].equalsIgnoreCase("hide")) {
 //								BarAPI.removeBar(player);
 //							}
 //							else if(args[1].equalsIgnoreCase("timer")) {
-//								BarAPI.setMessage(player, gold + "stageroad0820 ´ÔÀÌ '°æÇèÄ¡ x2' ÀÌº¥Æ®¸¦ 1ºĞ°£ ½ÇÇàÇß½À´Ï´Ù!", 60);
+//								BarAPI.setMessage(player, gold + "stageroad0820 ë‹˜ì´ 'ê²½í—˜ì¹˜ x2' ì´ë²¤íŠ¸ë¥¼ 1ë¶„ê°„ ì‹¤í–‰í–ˆìŠµë‹ˆë‹¤!", 60);
 //							}
 //						}
 //					}
@@ -338,19 +338,19 @@ public class Commands implements CommandExecutor, Listener {
 					else if(args[0].equalsIgnoreCase("potion")) {
 						if (args.length == 1) {
 							player.sendMessage(
-									error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red + "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+									error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red + "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 						}
 						else {
 							if(args[1].equalsIgnoreCase("nvision")) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1200, 1, false, false));
-								player.sendMessage(prefix + "Æ÷¼Ç È¿°ú " + yellow + "'¾ß°£ Åõ½Ã (1:00)'" + white + " (ÀÌ)°¡ Àû¿ëµÇ¾ú½À´Ï´Ù!");
+								player.sendMessage(prefix + "í¬ì…˜ íš¨ê³¼ " + yellow + "'ì•¼ê°„ íˆ¬ì‹œ (1:00)'" + white + " (ì´)ê°€ ì ìš©ë˜ì—ˆìŠµë‹ˆë‹¤!");
 							}
 							else if(args[1].equalsIgnoreCase("speed")) {
 								player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1200, 1, false, false));
-								player.sendMessage(prefix + "Æ÷¼Ç È¿°ú " + yellow + "'½Å¼Ó (1:00)'" + white + " (ÀÌ)°¡ Àû¿ëµÇ¾ú½À´Ï´Ù!");
+								player.sendMessage(prefix + "í¬ì…˜ íš¨ê³¼ " + yellow + "'ì‹ ì† (1:00)'" + white + " (ì´)ê°€ ì ìš©ë˜ì—ˆìŠµë‹ˆë‹¤!");
 							}
 							else {
-								player.sendMessage(error + "¾Ë ¼ö ¾ø´Â Æ÷¼Ç È¿°ú ÀÔ´Ï´Ù. ¾Æ·¡ÀÇ ¸ñ·Ï¿¡ ÀÖ´Â Æ÷¼Ç È¿°ú¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+								player.sendMessage(error + "ì•Œ ìˆ˜ ì—†ëŠ” í¬ì…˜ íš¨ê³¼ ì…ë‹ˆë‹¤. ì•„ë˜ì˜ ëª©ë¡ì— ìˆëŠ” í¬ì…˜ íš¨ê³¼ë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”.");
 								player.sendMessage(error + yellow + "nvision, speed");
 							}
 						}
@@ -359,7 +359,7 @@ public class Commands implements CommandExecutor, Listener {
 					else if(args[0].equalsIgnoreCase("nickname")) {
 						if (args.length == 1) {
 							player.sendMessage(
-									error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red + "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+									error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red + "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 						}
 						else {
 							String realName = player.getName();
@@ -368,56 +368,56 @@ public class Commands implements CommandExecutor, Listener {
 								player.setDisplayName(realName);
 								player.setPlayerListName(realName);
 								
-								player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ ÀÌ¸§À» ¿ø·¡´ë·Î ¼³Á¤ÇÏ¿´½À´Ï´Ù.");
+								player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ì´ë¦„ì„ ì›ë˜ëŒ€ë¡œ ì„¤ì •í•˜ì˜€ìŠµë‹ˆë‹¤.");
 							}
 							else if(args[1].equals(realName) || args[1].equals(player.getDisplayName())){
-								player.sendMessage(error + "º¯°æÇÏ·Á´Â ÀÌ¸§ÀÌ ÇöÀç ¼³Á¤µÈ ÀÌ¸§°ú µ¿ÀÏÇÕ´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØ ÁÖ¼¼¿ä!");
+								player.sendMessage(error + "ë³€ê²½í•˜ë ¤ëŠ” ì´ë¦„ì´ í˜„ì¬ ì„¤ì •ëœ ì´ë¦„ê³¼ ë™ì¼í•©ë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ ì£¼ì„¸ìš”!");
 							}
 							else {
 								player.setDisplayName(args[1]);
 								player.setPlayerListName(args[1]);
 								
-								player.sendMessage(prefix + "ÇÃ·¹ÀÌ¾îÀÇ ´Ğ³×ÀÓÀÌ " + yellow + realName + white + " ¿¡¼­ " 
-										+ yellow + player.getDisplayName() + white + " (À¸)·Î º¯°æµÇ¾ú½À´Ï´Ù.");
+								player.sendMessage(prefix + "í”Œë ˆì´ì–´ì˜ ë‹‰ë„¤ì„ì´ " + yellow + realName + white + " ì—ì„œ " 
+										+ yellow + player.getDisplayName() + white + " (ìœ¼)ë¡œ ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤.");
 							}
 						}
 					}
 					
 					else if(args[0].equalsIgnoreCase("enum")) {
 						if (args.length == 1) {
-							player.sendMessage(error + "¿­°Å °ªÀÌ ÀÔ·ÂµÇÁö ¾Ê°Å³ª ¾Ë ¼ö ¾ø´Â ¿­°ÅÇü °ªÀÔ´Ï´Ù. ¾Æ·¡ÀÇ °ªÀ» Âü°íÇØ ÁÖ¼¼¿ä.");
+							player.sendMessage(error + "ì—´ê±° ê°’ì´ ì…ë ¥ë˜ì§€ ì•Šê±°ë‚˜ ì•Œ ìˆ˜ ì—†ëŠ” ì—´ê±°í˜• ê°’ì…ë‹ˆë‹¤. ì•„ë˜ì˜ ê°’ì„ ì°¸ê³ í•´ ì£¼ì„¸ìš”.");
 							player.sendMessage(error + yellow + "apple, chocolate, ramen, rice, corn, sugar_cube");
 						}
 						else {
 							for (EnumTest e : EnumTest.getFoods()) {
 								if(args[1].equalsIgnoreCase(e.foodName)) {
-									String result = e.healthy ? "°Ç°­ÇÑ À½½ÄÀÔ´Ï´Ù." : "°Ç°­ÇÏÁö ¾ÊÀº À½½ÄÀÔ´Ï´Ù.";
+									String result = e.healthy ? "ê±´ê°•í•œ ìŒì‹ì…ë‹ˆë‹¤." : "ê±´ê°•í•˜ì§€ ì•Šì€ ìŒì‹ì…ë‹ˆë‹¤.";
 									String fdName = "";
 									
 									switch(e.foodName) {
 									case "apple":
-										fdName = "»ç°ú";
+										fdName = "ì‚¬ê³¼";
 										break;
 									case "chocolate":
-										fdName = "ÃÊÄİ¸´";
+										fdName = "ì´ˆì½œë¦¿";
 										break;
 									case "ramen":
-										fdName = "¶ó¸é";
+										fdName = "ë¼ë©´";
 										break;
 									case "rice":
-										fdName = "¹ä";
+										fdName = "ë°¥";
 										break;
 									case "corn":
-										fdName = "¿Á¼ö¼ö";
+										fdName = "ì˜¥ìˆ˜ìˆ˜";
 										break;
 									case "sugar_cube":
-										fdName = "°¢¼³ÅÁ";
+										fdName = "ê°ì„¤íƒ•";
 										break;
 									default:
 										break;
 									}
 									
-									player.sendMessage(prefix + fdName + " Àº(´Â) " + result);
+									player.sendMessage(prefix + fdName + " ì€(ëŠ”) " + result);
 									break;
 								}
 							}
@@ -427,8 +427,8 @@ public class Commands implements CommandExecutor, Listener {
 					if (player.isOp() == true) {
 						if (args[0].equalsIgnoreCase("tp")) {
 							if (args.length == 1) {
-								player.sendMessage(error + "ÀÎÀÚ °ªÀÌ ³Ê¹« ÀÛ°Å³ª ¾ø½À´Ï´Ù!" + yellow + " /blog help " + red
-										+ "¸¦ ÀÔ·ÂÇØ ´õ ¸¹Àº Ä¿¸Çµå¸¦ ¾Ë¾Æº¸¼¼¿ä!");
+								player.sendMessage(error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì‘ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤!" + yellow + " /blog help " + red
+										+ "ë¥¼ ì…ë ¥í•´ ë” ë§ì€ ì»¤ë§¨ë“œë¥¼ ì•Œì•„ë³´ì„¸ìš”!");
 							}
 
 							else if (args.length > 1) {
@@ -442,7 +442,7 @@ public class Commands implements CommandExecutor, Listener {
 									plugin.saveConfig();
 
 									player.sendMessage(
-											prefix + "ÇÃ·¹ÀÌ¾î " + yellow + player.getName() + white + " ÀÇ ÁÂÇ¥°¡ ÀúÀåµÇ¾ú½À´Ï´Ù.");
+											prefix + "í”Œë ˆì´ì–´ " + yellow + player.getName() + white + " ì˜ ì¢Œí‘œê°€ ì €ì¥ë˜ì—ˆìŠµë‹ˆë‹¤.");
 								}
 
 								else if (args[1].equalsIgnoreCase("move")) {
@@ -457,24 +457,24 @@ public class Commands implements CommandExecutor, Listener {
 										player.getLocation()
 												.setYaw((float) plugin.getConfig().getDouble(player.getName() + ".position.yaw"));
 
-										player.sendMessage(prefix + "ÀúÀåµÈ À§Ä¡·Î ÅÚ·¹Æ÷Æ® µÇ¾ú½À´Ï´Ù!");
+										player.sendMessage(prefix + "ì €ì¥ëœ ìœ„ì¹˜ë¡œ í…”ë ˆí¬íŠ¸ ë˜ì—ˆìŠµë‹ˆë‹¤!");
 									}
 
 									else {
-										player.sendMessage(error + "ÀúÀåµÈ ÁÂÇ¥°¡ ¾ø½À´Ï´Ù! " + yellow + "/blog tp save" + red
-												+ " ¸¦ ÀÌ¿ëÇØ ÁÂÇ¥¸¦ ÀúÀåÇØ ÁÖ¼¼¿ä!");
+										player.sendMessage(error + "ì €ì¥ëœ ì¢Œí‘œê°€ ì—†ìŠµë‹ˆë‹¤! " + yellow + "/blog tp save" + red
+												+ " ë¥¼ ì´ìš©í•´ ì¢Œí‘œë¥¼ ì €ì¥í•´ ì£¼ì„¸ìš”!");
 									}
 								}
 							}
 
 							else {
-								player.sendMessage(error + "¿¹±âÄ¡ ¸øÇÑ ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù. °³¹ßÀÚ´Â È®ÀÎÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù. (ln=" + getLineNumber() + ")");
+								player.sendMessage(error + "ì˜ˆê¸°ì¹˜ ëª»í•œ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤. ê°œë°œìëŠ” í™•ì¸í•´ ì£¼ì‹œê¸° ë°”ëë‹ˆë‹¤. (ln=" + getLineNumber() + ")");
 							}
 						}
 					}
 
 					else {
-						player.sendMessage(error + "ÀÌ Ä¿¸Çµå¸¦ »ç¿ëÇÒ ÃæºĞÇÑ ±ÇÇÑÀÌ ºÎ¿©µÇÁö ¾Ê¾Ò½À´Ï´Ù! °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇØ º¸¼¼¿ä.");
+						player.sendMessage(error + "ì´ ì»¤ë§¨ë“œë¥¼ ì‚¬ìš©í•  ì¶©ë¶„í•œ ê¶Œí•œì´ ë¶€ì—¬ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤! ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•´ ë³´ì„¸ìš”.");
 					}
 				}
 			}
@@ -482,19 +482,19 @@ public class Commands implements CommandExecutor, Listener {
 		else {
 			if(command.getName().equalsIgnoreCase("cs")) {
 				if(args.length == 0) {
-					sender.sendMessage(error + "ÀÎÀÚ °ªÀÌ ³Ê¹« Àû°Å³ª ¾ø½À´Ï´Ù. ´Ù¸¥ Ä¿¸Çµå¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä!");
+					sender.sendMessage(error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤. ë‹¤ë¥¸ ì»¤ë§¨ë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”!");
 				}
 				else {
 					if(args[0].equalsIgnoreCase("test")) {
-						sender.sendMessage(prefix + "ÄÜ¼Ö Ä¿¸Çµå°¡ Á¤»óÀûÀ¸·Î ÀÛµ¿ÇÕ´Ï´Ù! (¸ÖÆ¼ Ä¿¸Çµå 1");
+						sender.sendMessage(prefix + "ì½˜ì†” ì»¤ë§¨ë“œê°€ ì •ìƒì ìœ¼ë¡œ ì‘ë™í•©ë‹ˆë‹¤! (ë©€í‹° ì»¤ë§¨ë“œ 1");
 					}
 					else if (args[0].equalsIgnoreCase("exam")) {
 						if(args.length == 1) {
-							sender.sendMessage(error + "ÀÎÀÚ °ªÀÌ ³Ê¹« Àû°Å³ª ¾ø½À´Ï´Ù. ´Ù¸¥ Ä¿¸Çµå¸¦ ÀÔ·ÂÇØ ÁÖ¼¼¿ä!");
+							sender.sendMessage(error + "ì¸ì ê°’ì´ ë„ˆë¬´ ì ê±°ë‚˜ ì—†ìŠµë‹ˆë‹¤. ë‹¤ë¥¸ ì»¤ë§¨ë“œë¥¼ ì…ë ¥í•´ ì£¼ì„¸ìš”!");
 						}
 						else {
 							if (args[1].equalsIgnoreCase("t1")) {
-								sender.sendMessage(prefix + "ÄÜ¼Ö Ä¿¸Çµå°¡ Á¤»óÀûÀ¸·Î ÀÛµ¿ÇÕ´Ï´Ù! (¸ÖÆ¼ Ä¿¸Çµå 2)");
+								sender.sendMessage(prefix + "ì½˜ì†” ì»¤ë§¨ë“œê°€ ì •ìƒì ìœ¼ë¡œ ì‘ë™í•©ë‹ˆë‹¤! (ë©€í‹° ì»¤ë§¨ë“œ 2)");
 							}
 						}
 					}

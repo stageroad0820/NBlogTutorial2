@@ -42,7 +42,7 @@ public class Main extends JavaPlugin implements Listener {
 	PluginDescriptionFile pdfFile = this.getDescription();
 	PluginManager pm = Bukkit.getPluginManager();
 
-	// ¸¹ÀÌ ¾²ÀÌ´Â String °ª Á¤¸®
+	// ë§ì´ ì“°ì´ëŠ” String ê°’ ì •ë¦¬
 	String prefix = ChatColor.AQUA + "[TUT] " + ChatColor.WHITE + "";
 	String info = ChatColor.YELLOW + "[Info] " + ChatColor.WHITE + "";
 	String error = ChatColor.DARK_RED + "[Error] " + ChatColor.RED + "";
@@ -52,7 +52,7 @@ public class Main extends JavaPlugin implements Listener {
 	String pname = plname + " v" + plvers + " ";
 	String cinfo = info + ChatColor.YELLOW + pname + ChatColor.WHITE + " ";
 
-	// ¸¹ÀÌ ¾²ÀÌ´Â »ö±ò ÄÚµå Á¤¸® (ChatColor.<Color>)
+	// ë§ì´ ì“°ì´ëŠ” ìƒ‰ê¹” ì½”ë“œ ì •ë¦¬ (ChatColor.<Color>)
 	String white = ChatColor.WHITE + "";
 	String red = ChatColor.RED + "";
 	String dred = ChatColor.DARK_RED + "";
@@ -92,14 +92,14 @@ public class Main extends JavaPlugin implements Listener {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 
-		console(cinfo + " (ÀÌ)°¡ È°¼ºÈ­ µÇ´Â Áß ÀÔ´Ï´Ù.");
+		console(cinfo + " (ì´)ê°€ í™œì„±í™” ë˜ëŠ” ì¤‘ ì…ë‹ˆë‹¤.");
 	}
 
 	@Override
 	public void onDisable() {
 		saveConfig();
 
-		console(cinfo + " (ÀÌ)°¡ ºñÈ°¼ºÈ­ µÇ´Â Áß ÀÔ´Ï´Ù.");
+		console(cinfo + " (ì´)ê°€ ë¹„í™œì„±í™” ë˜ëŠ” ì¤‘ ì…ë‹ˆë‹¤.");
 	}
 
 	@EventHandler
@@ -108,23 +108,23 @@ public class Main extends JavaPlugin implements Listener {
 		Entity killer = event.getEntity().getKiller();
 
 		if (event.getDeathMessage().contains("fell from a high place")) {
-			event.setDeathMessage(prefix + yellow + victim.getName() + white + " ´ÔÀÌ " + aqua + "¾ÕÀ» º¸Áö ¾Ê°í ´Ş¸®´Ù°¡ ¶³¾îÁ³½À´Ï´Ù.");
+			event.setDeathMessage(prefix + yellow + victim.getName() + white + " ë‹˜ì´ " + aqua + "ì•ì„ ë³´ì§€ ì•Šê³  ë‹¬ë¦¬ë‹¤ê°€ ë–¨ì–´ì¡ŒìŠµë‹ˆë‹¤.");
 		}
 
 		else if (event.getDeathMessage().contains("went up in flames")) {
 			event.setDeathMessage(
-					prefix + yellow + victim.getName() + white + " ´ÔÀÌ " + aqua + "³Ê¹« Ãß¿î ³ª¸ÓÁö ºÒ¼ÓÀ¸·Î ¶Ù¾î µé¾ú½À´Ï´Ù.");
+					prefix + yellow + victim.getName() + white + " ë‹˜ì´ " + aqua + "ë„ˆë¬´ ì¶”ìš´ ë‚˜ë¨¸ì§€ ë¶ˆì†ìœ¼ë¡œ ë›°ì–´ ë“¤ì—ˆìŠµë‹ˆë‹¤.");
 		}
 
 		else if (killer instanceof Player) {
 			if (event.getDeathMessage().contains("was slain by")) {
-				event.setDeathMessage(prefix + yellow + victim.getName() + white + " ´ÔÀÌ " + red + killer.getName()
-						+ white + " ´Ô ¿¡°Ô " + dred + "±Ø¾Ç¹«µµÇÏ°Ô »ìÇØ´çÇÏ¿´½À´Ï´Ù.");
+				event.setDeathMessage(prefix + yellow + victim.getName() + white + " ë‹˜ì´ " + red + killer.getName()
+						+ white + " ë‹˜ ì—ê²Œ " + dred + "ê·¹ì•…ë¬´ë„í•˜ê²Œ ì‚´í•´ë‹¹í•˜ì˜€ìŠµë‹ˆë‹¤.");
 			}
 
 			else if (event.getDeathMessage().contains("was shot by")) {
-				event.setDeathMessage(prefix + red + killer.getName() + white + " ´ÔÀÌ " + yellow + victim.getName()
-						+ white + " ´Ô¿¡°Ô " + aqua + "È­»ìÀÌ¶ó´Â °ÍÀÌ ¹«¾ùÀÎÁö ¸öÀ¸·Î Á÷Á¢ ¾Ë°Ô ÇØ ÁÖ¾ú½À´Ï´Ù.");
+				event.setDeathMessage(prefix + red + killer.getName() + white + " ë‹˜ì´ " + yellow + victim.getName()
+						+ white + " ë‹˜ì—ê²Œ " + aqua + "í™”ì‚´ì´ë¼ëŠ” ê²ƒì´ ë¬´ì—‡ì¸ì§€ ëª¸ìœ¼ë¡œ ì§ì ‘ ì•Œê²Œ í•´ ì£¼ì—ˆìŠµë‹ˆë‹¤.");
 			}
 		}
 	}
@@ -137,20 +137,20 @@ public class Main extends JavaPlugin implements Listener {
 		ItemStack is = new ItemStack(Material.ARROW);
 		ItemMeta im = is.getItemMeta();
 
-		im.setDisplayName(aqua + "Ã¼·Â È¸º¹");
-		im.setLore(Arrays.asList(gray + "¸¶³ª¸¦ 3 ¼Ò¸ğÇÏ¿© Ä³¸¯ÅÍÀÇ Ã¼·ÂÀ» ¸ğµÎ È¸º¹ÇÕ´Ï´Ù."));
+		im.setDisplayName(aqua + "ì²´ë ¥ íšŒë³µ");
+		im.setLore(Arrays.asList(gray + "ë§ˆë‚˜ë¥¼ 3 ì†Œëª¨í•˜ì—¬ ìºë¦­í„°ì˜ ì²´ë ¥ì„ ëª¨ë‘ íšŒë³µí•©ë‹ˆë‹¤."));
 		is.setItemMeta(im);
 
 		int mp = player.getFoodLevel();
 
 		if (action.equals(Action.LEFT_CLICK_AIR) && player.getItemInHand().equals(is)) {
 			if (mp == 0 || mp <= 3) {
-				player.sendMessage(error + "½ºÅ³À» »ç¿ëÇÏ±â À§ÇÑ ¸¶³ª°¡ ºÎÁ·ÇÕ´Ï´Ù. ¹è°íÇÄÀ» ÇØ°áÇÏ¿© ¸¶³ª¸¦ ÃæÀüÇØ ÁÖ¼¼¿ä!");
+				player.sendMessage(error + "ìŠ¤í‚¬ì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ ë§ˆë‚˜ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤. ë°°ê³ í””ì„ í•´ê²°í•˜ì—¬ ë§ˆë‚˜ë¥¼ ì¶©ì „í•´ ì£¼ì„¸ìš”!");
 			}
 
 			else if (mp > 4) {
 				player.setHealth(20.0);
-				player.sendMessage(info + yellow + player.getName() + white + " ÀÇ Ã¼·ÂÀ» ¸ğµÎ È¸º¹ÇÏ¿´½À´Ï´Ù.");
+				player.sendMessage(info + yellow + player.getName() + white + " ì˜ ì²´ë ¥ì„ ëª¨ë‘ íšŒë³µí•˜ì˜€ìŠµë‹ˆë‹¤.");
 			}
 		}
 	}
@@ -162,15 +162,15 @@ public class Main extends JavaPlugin implements Listener {
 		ItemStack is = new ItemStack(Material.ARROW);
 		ItemMeta im = is.getItemMeta();
 
-		im.setDisplayName(aqua + "Ã¼·Â È¸º¹");
-		im.setLore(Arrays.asList(gray + "¸¶³ª¸¦ 3 ¼Ò¸ğÇÏ¿© Ä³¸¯ÅÍÀÇ Ã¼·ÂÀ» ¸ğµÎ È¸º¹ÇÕ´Ï´Ù."));
+		im.setDisplayName(aqua + "ì²´ë ¥ íšŒë³µ");
+		im.setLore(Arrays.asList(gray + "ë§ˆë‚˜ë¥¼ 3 ì†Œëª¨í•˜ì—¬ ìºë¦­í„°ì˜ ì²´ë ¥ì„ ëª¨ë‘ íšŒë³µí•©ë‹ˆë‹¤."));
 		is.setItemMeta(im);
 
 		player.getInventory().addItem(is);
 
 		scboard(player);
 		
-		event.setJoinMessage(prefix + yellow + player.getName() + white + " ´ÔÀÌ ¼­¹ö¿¡ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù!");
+		event.setJoinMessage(prefix + yellow + player.getName() + white + " ë‹˜ì´ ì„œë²„ì— ì ‘ì†í•˜ì…¨ìŠµë‹ˆë‹¤!");
 	}
 
 	@EventHandler
@@ -180,13 +180,13 @@ public class Main extends JavaPlugin implements Listener {
 		ItemStack is = new ItemStack(Material.ARROW);
 		ItemMeta im = is.getItemMeta();
 
-		im.setDisplayName(aqua + "Ã¼·Â È¸º¹");
-		im.setLore(Arrays.asList(gray + "¸¶³ª¸¦ 3 ¼Ò¸ğÇÏ¿© Ä³¸¯ÅÍÀÇ Ã¼·ÂÀ» ¸ğµÎ È¸º¹ÇÕ´Ï´Ù."));
+		im.setDisplayName(aqua + "ì²´ë ¥ íšŒë³µ");
+		im.setLore(Arrays.asList(gray + "ë§ˆë‚˜ë¥¼ 3 ì†Œëª¨í•˜ì—¬ ìºë¦­í„°ì˜ ì²´ë ¥ì„ ëª¨ë‘ íšŒë³µí•©ë‹ˆë‹¤."));
 		is.setItemMeta(im);
 
 		player.getInventory().removeItem(is);
 
-		event.setQuitMessage(prefix + yellow + player.getName() + white + " ´ÔÀÌ ¼­¹ö¿¡¼­ ³ª°¡¼Ì½À´Ï´Ù!");
+		event.setQuitMessage(prefix + yellow + player.getName() + white + " ë‹˜ì´ ì„œë²„ì—ì„œ ë‚˜ê°€ì…¨ìŠµë‹ˆë‹¤!");
 	}
 	
 	public void scboard (Player player) {
@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener {
         team.setPrefix(green + "");
         team.setCanSeeFriendlyInvisibles(true);
        
-        ob.setDisplayName(aqua + "½ºÄÚ¾îº¸µå Å×½ºÆ®!");
+        ob.setDisplayName(aqua + "ìŠ¤ì½”ì–´ë³´ë“œ í…ŒìŠ¤íŠ¸!");
         ob.setDisplaySlot(DisplaySlot.SIDEBAR);
        
         score.setScore(20);
